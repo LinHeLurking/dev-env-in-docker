@@ -17,7 +17,7 @@ _omz="1"
 _omz_p10k="1"
 _lvim="1"
 
-shell="bash"
+_shell="bash"
 
 valid_val () {
     [ $1 = "1" ] || [ $1 = "0" ]
@@ -55,7 +55,7 @@ py_choice="0"
 [ "$_python2" = "1" ] && [ "$_python3" = "0" ] && py_choice="1"
 [ "$_python2" = "1" ] && [ "$_python3" = "1" ] && py_choice="3"
 
-[ "$_zsh" = "1" ] && shell="zsh"
+[ "$_zsh" = "1" ] && _shell="zsh"
 
 bash util/apt.sh && \
 bash installer/core_install.sh && \
@@ -63,10 +63,10 @@ bash installer/zsh_install.sh $_zsh && \
 bash installer/c_cpp_install.sh $c_cpp_choice && \
 bash installer/python_install.sh $py_choice && \
 bash installer/nvim_install.sh $_nvim && \
-bash util/add_user.sh $username $password $shell && \
+bash util/add_user.sh $username $password $_shell && \
 chown $username:$username -R /tmp/config && \
 su $username -c "bash installer/omz_install.sh $_omz" && \
-su $username -c "bash installer/lvim_install.sh" $_lvim $shell && \
+su $username -c "bash installer/lvim_install.sh $_lvim $_shell"  && \
 su $username -c "bash installer/omz_p10k_install.sh $_omz_p10k" || exit 1
 
 if [ "$_python3" = "1" ]; then
