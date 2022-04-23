@@ -66,8 +66,8 @@ bash installer/nvim_install.sh $_nvim && \
 bash util/add_user.sh $username $password $shell && \
 chown $username:$username -R /tmp/config && \
 su $username -c "bash installer/omz_install.sh $_omz" && \
-su $username -c "bash installer/omz_p10k_install.sh $_omz_p10k" && \
-su $username -c "bash installer/lvim_install.sh" $_lvim $shell || exit 1
+su $username -c "bash installer/lvim_install.sh" $_lvim $shell && \
+su $username -c "bash installer/omz_p10k_install.sh $_omz_p10k" || exit 1
 
 if [ "$_python3" = "1" ]; then
     su $username -c "python3 -m pip install -i https://mirrors.bfsu.edu.cn/pypi/web/simple --upgrade pip"
