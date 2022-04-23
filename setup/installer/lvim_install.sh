@@ -5,8 +5,6 @@
 choice=$1
 shell=$2
 
-set -x
-
 [ "$choice" = "1" ] && \
 node -v && has_node="y" || has_node="n" && \
 pip -V && has_pip="y" || has_pip="n" && \
@@ -16,7 +14,7 @@ cd /home/$USER && \
 curl https://gitee.com/mirrors/lunarvim/raw/master/utils/installer/install.sh > lvim_install_raw.sh && \
 echo -e "$has_node\n$has_pip\n$has_cargo\n" | bash lvim_install_raw.sh && \
 mv /tmp/config/config.lua ~/.config/lvim/config.lua && \
-/home/$USER/.local/bin/lvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync" -c "PackerUpdate" -c "PackerInstall" && \
+/home/$USER/.local/bin/lvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync" && \
 git config --global --remove-section url."https://hub.fastgit.xyz/" && \
 echo "alias vi=\"/home/$USER/.local/bin/lvim\"" >> "/home/$USER/.${shell}rc" && \
 echo "alias vim=\"/home/$USER/.local/bin/lvim\"" >> "/home/$USER/.${shell}rc"
