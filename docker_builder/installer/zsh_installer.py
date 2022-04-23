@@ -4,8 +4,8 @@ from .common import Installer
 
 
 class ZshInstaller(Installer):
-    def __init__(self, user_name: str) -> None:
-        self.user_name = user_name
+    def __init__(self, username: str) -> None:
+        self.username = username
         self.install_zsh = True
         self.install_p10k = True
         super().__init__(
@@ -23,6 +23,17 @@ class ZshInstaller(Installer):
         self._show_name()
         self._show_extra_info()
         selection = self._get_selection()[0]
+        ext_zsh = [
+            "apt install -y zsh fonts-powerline",
+            f"cp /tmp/omz_install.sh /home/{self.username}",
+            f"chmod 777 /home/{self.username}/omz_install.sh",
+            f"su {self.username} -c \"cd /home/{self.username} && sh ./omz_install.sh {self.username}\"",
+        ]
+        ext_p10k = [
+            f"cp /tmp/omz_install_p10k.sh /home/{self.username}",
+            f"chmod 777 /home/{self.username}/omz_install_p10k.sh",
+            f"su {self.username} -c \"cd /home/{self.username} && sh ./omz_install_p10k.sh {self.username}\"",
+        ]
         if selection == 0:
             self.install_zsh = False
             self.install_p10k = False
@@ -30,23 +41,15 @@ class ZshInstaller(Installer):
         elif selection == 1:
             self.install_zsh = True
             self.install_p10k = False
-            return [
-                "apt install zsh",
-                f"cp /tmp/zsh_install.sh /home/{self.user_name}",
-                f"chmod 777 /home/{self.user_name}/zsh_install.sh",
-                f"su {self.user_name} -c \"cd / home/{self.user_name} && sh ./zsh_install.sh {self.user_name}\"",
-            ]
+            cmd = []
+            cmd.extend(ext_zsh)
+            return cmd
         elif selection == 2:
             self.install_zsh = True
             self.install_p10k = True
-            return [
-                "apt install -y zsh fonts-powerline",
-                f"cp /tmp/zsh_install.sh /home/{self.user_name}",
-                f"chmod 777 /home/{self.user_name}/zsh_install.sh",
-                f"su {self.user_name} -c \"cd / home/{self.user_name} && sh ./zsh_install.sh {self.user_name}\"",
-                f"cp /tmp/zsh_install_p10k.sh /home/{self.user_name}",
-                f"chmod 777 /home/{self.user_name}/zsh_install_p10k.sh",
-                f"su {self.user_name} -c \"cd /home/{self.user_name} && sh ./zsh_install_p10k.sh {self.user_name}\"",
-            ]
+            cmd = []
+            cmd.extend(ext_zsh)
+            cmd.extend(ext_p10k)
+            return cmd
         else:
             raise Exception("Select error!")

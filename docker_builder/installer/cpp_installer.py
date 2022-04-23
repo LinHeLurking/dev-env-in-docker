@@ -1,16 +1,17 @@
 from typing import List
 from .common import Installer
 
+
 class CppInstaller(Installer):
     def __init__(self) -> None:
         super().__init__(
             name="C++",
             candidates=(
-                "No", 
-                "gcc/g++", 
+                "No",
+                "gcc/g++",
                 "gcc/g++, clang/clang++, llvm"
             ),
-            extra_info="make, cmake, ninja-build will be installed",
+            extra_info="Unless 'No' is selected, build-essential(including make), cmake, ninja-build will be installed",
             default_idx=2,
         )
 

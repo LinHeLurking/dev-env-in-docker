@@ -28,5 +28,5 @@ class CoreComponentInstaller(Installer):
             x += f"{y} "
         return [
             f"apt install -y {x}",
-            "echo \"debconf debconf/frontend select Noninteractive\" | debconf-set-selections"
+            "echo \"debconf debconf/frontend select Noninteractive\" | debconf-set-selections",
         ]

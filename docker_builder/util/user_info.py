@@ -1,6 +1,7 @@
 from typing import Tuple, List
 import getpass
 
+
 class UserUtil:
     def __init__(self) -> None:
         self.name: str = ""
@@ -9,7 +10,7 @@ class UserUtil:
     def _ask_user_name(self) -> str:
         print("Input a valid unix username for the container")
         default_name = getpass.getuser().lower()
-        name = input(f"Input your user name(default: {default_name}):")
+        name = input(f"Input your username(default: {default_name}):")
         name = name.strip()
         if name == "":
             name = default_name
@@ -34,6 +35,8 @@ class UserUtil:
             shell = "zsh"
         else:
             shell = "bash"
-        a = f"adduser --quiet --disabled-password --shell /bin/{shell} --home /home/{self.name} --gecos \"User\" {self.name}"
-        b = f"echo \"{self.name}:{self.password}\" | chpasswd"
-        return [a, b]
+        return [
+            f"adduser --quiet --disabled-password --shell /bin/{shell} --home /home/{self.name} --gecos \"User\" {self.name}",
+            f"echo \"{self.name}:{self.password}\" | chpasswd",
+            f"usermod -aG sudo {self.name}",
+        ]
