@@ -1,8 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-user=$1
+# 请以普通用户身份执行该脚本
 
-cd /home/$user && \
+choice=$1
+
+[ "$choice" = "1" ] && \
+cd /home/$USER && \
 curl https://gitee.com/mirrors/ohmyzsh/raw/master/tools/install.sh | \
 sed "s/REPO=\${REPO:\-ohmyzsh\/ohmyzsh}/REPO=\${REPO:\-mirrors\/ohmyzsh}/g" | \
 sed "s/https:\/\/github\.com\//https:\/\/gitee.com\//g" > omz_install_raw.sh && \
