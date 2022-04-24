@@ -97,7 +97,8 @@ vim.api.nvim_set_keymap("v", "<C-C>", ":OSCYank<CR>", opts)
 
 function _G.set_terminal_keymaps()
   local term_opts = { noremap = true }
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], term_opts)
+  -- Do not bind this if you want to use vim in vim terminal :P
+  -- vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], term_opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], term_opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], term_opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], term_opts)
