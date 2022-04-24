@@ -1,3 +1,4 @@
 Dockerfile
 Dockerfile.old
 *.pyc
+setup/config/xray.config.json

@@ -46,16 +46,16 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- }
 
 -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
--- }
+lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Trouble",
+  r = { "<cmd>Trouble lsp_references<cr>", "References" },
+  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+  d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
+  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+  w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
+}
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -77,19 +77,39 @@ end
 
 local opts = { noremap = true, silent = true }
 bind_ni("<C-_>", "<Plug>(comment_toggle_current_linewise)", opts)
-bind_ni("<C-D>", "yyP", opts)
+bind_ni("<C-D>", "yyp", opts)
+bind_ni("<C-Z>", "u", opts)
+bind_ni("<C-Y>", "<C-R>", opts)
 
+-- Toggle block comment
 vim.api.nvim_set_keymap(
   "v",
   "<C-_>",
-  "<Plug>(comment_toggle_blockwise_visual)",
+  "<Esc><Cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>",
   opts
 )
+
+-- Toggle relative linenumber
+lvim.builtin.which_key.mappings["n"] = { "<cmd>set relativenumber!<CR>", "Toggle relative linenumber" }
+
+-- OSC52 support. Common terminals will be able to copy from vim(including Windows Terminal).
+vim.api.nvim_set_keymap("v", "<C-C>", ":OSCYank<CR>", opts)
+
+function _G.set_terminal_keymaps()
+  local term_opts = { noremap = true }
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], term_opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], term_opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], term_opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], term_opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], term_opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
-  "c",
   "lua",
   "python",
 }
@@ -177,7 +197,7 @@ lvim.plugins = {
     cmd = "TroubleToggle",
   },
   { "folke/tokyonight.nvim" },
-  { "kevinhwang91/rnvimr" },
+  { "ojroques/vim-oscyank" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)

@@ -15,4 +15,5 @@ got=$(sha256sum nvim-linux64.deb) && \
 expected=$(cat nvim-linux64.deb.sha256sum) && \
 [ "$got" = "$expected" ] && \
 sudo apt install ./nvim-linux64.deb && \
-rm ./nvim-linux64.deb
+rm ./nvim-linux64.deb && 
+rm ./nvim-linux64.deb.sha256sum
