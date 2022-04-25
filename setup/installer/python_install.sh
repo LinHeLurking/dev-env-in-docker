@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 # 请以 sudo 执行该脚本
 
