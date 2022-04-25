@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ADD setup/ tmp/
+ADD setup/ /tmp/
 
 RUN cd /tmp && \
   bash run_all.sh --username dev --password 123456 && \
