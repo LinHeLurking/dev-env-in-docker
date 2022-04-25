@@ -16,7 +16,8 @@ echo -e "$has_node\n$has_pip\n$has_cargo\n" | bash lvim_install_raw.sh && \
 ( \
   ( \
     [ -f /tmp/config/lvim.config.lua ] && \
-    cp /tmp/config/lvim.config.lua "/home/$USER/.config/lvim/config.lua" \
+    cp /tmp/config/lvim.config.lua "/home/$USER/.config/lvim/config.lua" && \
+    sed -i "s/vim\.o\.shell = \"\/bin\/bash\"/vim\.o\.shell = \"\/bin\/zsh\"/" "/home/$USER/.config/lvim/config.lua" \
   ) || \
   true \ 
 ) && \

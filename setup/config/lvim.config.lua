@@ -16,6 +16,8 @@ vim.g.tokyonight_italic_comments = false
 vim.g.tokyonight_italic_keywords = false
 vim.g.tokyonight_transparent = true
 vim.g.tokyonight_style = "day"
+-- Config default shell in integrated terminal
+vim.o.shell = "/bin/bash"
 lvim.transparent_window = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
@@ -65,6 +67,7 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.size = 15
 lvim.builtin.terminal.direction = "horizontal"
+lvim.builtin.terminal.shell = vim.o.shell
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
 lvim.builtin.lualine.style = "default"
