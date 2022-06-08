@@ -4,5 +4,6 @@
 
 choice=$1
 
-[ "$choice" = "1" ] && \
+[ "$choice" = "1" ] || exit 0
+
 sudo apt install -y zsh fonts-powerline

@@ -17,6 +17,8 @@ _omz="1"
 _omz_p10k="1"
 _lvim="1"
 _xray="1"
+_nvm="1"
+_none_root_conda="0"
 
 _shell="bash"
 
@@ -38,6 +40,8 @@ while [ "$#" -gt 0 ]; do
         --omz) valid_val $2 && _omz=$2; shift ;;
         --omz_p10k) valid_val $2 && _omz_p10k=$2; shift ;;
         --lvim) valid_val $2 && _lvim=$2; shift ;;
+        --nvm) valid_val $2 && _nvm=$2; shift ;;
+        --none_root_conda) valid_val $2 && _none_root_conda=$2; shift ;;
     esac
     shift
 done
@@ -61,17 +65,22 @@ py_choice="0"
 
 chmod 777 /tmp/* -R
 
-bash util/apt.sh && \
-bash installer/core_install.sh && \
-bash installer/zsh_install.sh $_zsh && \
-bash installer/c_cpp_install.sh $c_cpp_choice && \
-bash installer/python_install.sh $py_choice && \
-bash installer/nvim_install.sh $_nvim && \
-bash util/add_user.sh $username $password $_shell && \
-su $username -c "bash installer/omz_install.sh $_omz" && \
-su $username -c "bash installer/lvim_install.sh $_lvim $_shell"  && \
-su $username -c "bash installer/xray_install.sh $_xray $_shell" && \
-su $username -c "bash installer/omz_p10k_install.sh $_omz_p10k" || exit 1
+set -o xtrace
+
+bash -x util/apt.sh && \
+bash -x installer/core_install.sh && \
+bash -x installer/zsh_install.sh $_zsh && \
+bash -x installer/c_cpp_install.sh $c_cpp_choice && \
+bash -x installer/python_install.sh $py_choice && \
+bash -x installer/nvim_install.sh $_nvim && \
+bash -x util/add_user.sh $username $password $_shell && \
+su $username -c "bash -x installer/omz_install.sh $_omz" && \
+su $username -c "bash -x util/none_root_conda.sh $_none_root_conda $_shell" && \
+su $username -c "bash -x installer/nvm_install.sh $_nvm $_shell" && \
+su $username -c "bash -x installer/lvim_install.sh $_lvim $_shell"  && \
+su $username -c "bash -x installer/xray_install.sh $_xray $_shell" && \
+su $username -c "bash -x installer/omz_p10k_install.sh $_omz_p10k" || exit 1
+
 
 if [ "$_python3" = "1" ]; then
     su $username -c "python3 -m pip install -i https://mirrors.bfsu.edu.cn/pypi/web/simple --upgrade pip"

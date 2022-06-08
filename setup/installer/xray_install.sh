@@ -26,7 +26,8 @@ update_xray() {
 END
 )
 
-[ "$choice" = "1" ] && \
+[ "$choice" = "1" ] || exit 0
+
 mkdir -p $install_dir && \
 mkdir -p $log_dir && \
 cd $install_dir && \

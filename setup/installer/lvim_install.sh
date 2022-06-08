@@ -5,7 +5,8 @@
 choice="$1"
 shell="$2"
 
-[ "$choice" = "1" ] && \
+[ "$choice" = "1" ] || exit 0
+    
 node -v && has_node="y" || has_node="n" && \
 pip -V && has_pip="y" || has_pip="n" && \
 cargo -V && has_cargo="y" || has_cargo="n" && \

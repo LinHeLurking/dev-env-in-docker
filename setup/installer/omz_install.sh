@@ -4,7 +4,8 @@
 
 choice=$1
 
-[ "$choice" = "1" ] && \
+[ "$choice" = "1" ] || exit 0
+
 cd /home/$USER && \
 curl https://gitee.com/mirrors/ohmyzsh/raw/master/tools/install.sh | \
 sed "s/REPO=\${REPO:\-ohmyzsh\/ohmyzsh}/REPO=\${REPO:\-mirrors\/ohmyzsh}/g" | \

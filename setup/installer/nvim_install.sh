@@ -7,7 +7,8 @@ nvim_deb_sha256_url="https://ghproxy.com/https://github.com/neovim/neovim/releas
 
 choice=$1
 
-[ "$choice" = "1" ] && \
+[ "$choice" = "1" ] || exit 0
+
 cd /tmp/ && \
 wget $nvim_deb_url && \
 wget $nvim_deb_sha256_url && \

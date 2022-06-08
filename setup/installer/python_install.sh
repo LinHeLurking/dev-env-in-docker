@@ -5,6 +5,7 @@
 choice=$1
 
 case "${choice}" in
+    0)  ;;
     1)
         sudo apt install -y python2
         ;;
