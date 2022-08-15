@@ -6,7 +6,6 @@
 ## 有什么
 
 默认是有 gcc/g++, clang/clang++, llvm, cmake, ninja, miniconda。
-而且安装了 oh-my-zsh，装了 powerline10k 主题。
 
 ## 怎么用
 
