@@ -3,6 +3,7 @@
 # 普通用户权限
 
 _choice=$1
+_shell=$2
 
 [ "${_choice}" = "1" ] || exit 0
 

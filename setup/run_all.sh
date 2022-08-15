@@ -56,4 +56,4 @@ bash -x installer/c_cpp_install.sh $c_cpp_choice && \
 bash -x util/add_user.sh $username $password $_shell && \
 su $username -c "bash -x installer/omz_install.sh $_omz" && \
 su $username -c "bash -x installer/omz_p10k_install.sh $_omz_p10k" && \
-su $username -c "bash -x installer/conda_install.sh $_conda" || exit 1
+su $username -c "bash -x installer/conda_install.sh $_conda $_shell" || exit 1

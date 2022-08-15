@@ -13,4 +13,4 @@ USER ${username}
 ENV TERM xterm-256color
 WORKDIR /home/${username}
 
-CMD ["zsh"]
+CMD ["bash"]
