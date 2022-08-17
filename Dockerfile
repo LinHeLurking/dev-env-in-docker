@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.4.0-devel-ubuntu20.04
+FROM nvidia/cuda:11.4.0-cudnn8-devel-ubuntu20.04
 
 ADD setup/ /tmp/
 
