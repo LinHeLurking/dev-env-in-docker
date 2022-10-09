@@ -12,7 +12,7 @@ _clang_llvm="1"
 _zsh="0"
 _omz="0"
 _omz_p10k="0"
-_conda="1"
+_conda="0"
 
 _shell="bash"
 

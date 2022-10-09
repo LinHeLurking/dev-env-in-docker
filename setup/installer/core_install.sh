@@ -2,5 +2,5 @@
 
 # 请以 sudo 执行该脚本
 
-apt install -y sudo git gnupg wget curl vim ca-certificates locales zip
+apt install -y sudo git gnupg wget curl vim ca-certificates locales zip bash-completion
 echo \"debconf debconf/frontend select Noninteractive\" | debconf-set-selections
